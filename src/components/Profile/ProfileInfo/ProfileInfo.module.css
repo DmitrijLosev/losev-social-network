@@ -1,0 +1,18 @@
+.descriptionBlock {
+    padding: 10px;
+}
+
+.profileinfoimg {
+    width: 900px;
+    height: 140px;
+}
+
+.profile {
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    padding: 10px;
+}
+.status{
+    padding:10px;
+    font-weight: 500;
+}

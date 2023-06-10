@@ -1,0 +1,15 @@
+.content {
+    grid-area: c;
+    background-color: green;
+}
+.item {
+    color:red;
+}
+
+.postBlock {
+    padding: 10px;
+}
+
+.posts {
+    margin-top: 10px;
+}

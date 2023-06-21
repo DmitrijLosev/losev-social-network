@@ -1,7 +1,7 @@
 import React from "react";
 import s from './ProfileInfo.module.css';
 
-class ProfileStatus extends React.Component {
+class ProfileStatusWithClass extends React.Component {
 
 
     state = {
@@ -46,4 +46,4 @@ class ProfileStatus extends React.Component {
     }
 }
 
-export default ProfileStatus;
+export default ProfileStatusWithClass;

@@ -1,6 +1,6 @@
 import {getAuth} from "./Auth-reducer";
 
-const SET_INITIALIZATION_COMPLETE = 'SET_INITIALIZATION_COMPLETE';
+const SET_INITIALIZATION_COMPLETE = 'App/SET_INITIALIZATION_COMPLETE';
 
 
 let initialState = {
@@ -22,11 +22,9 @@ const AppReducer = (state = initialState, action) => {
 };
 export const initializationComplete = () => ({type: SET_INITIALIZATION_COMPLETE});
 
-export const initializeApp = () => {
-    return (dispatch) => {
+export const initializeApp = () => (dispatch) => {
         let promise=dispatch(getAuth());
         Promise.all([promise]).then(()=>{dispatch(initializationComplete());})
-    }
 }
 
 

@@ -1,4 +1,4 @@
-const ADD_MESSAGE = 'ADD-MESSAGE';
+const ADD_MESSAGE = 'DialogPage/ADD-MESSAGE';
 
 let initialState = {
     dialogs: [

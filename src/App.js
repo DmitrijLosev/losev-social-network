@@ -5,7 +5,7 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import Friends from './components/Friends/Friends'
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Route, Routes} from 'react-router-dom';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
@@ -61,7 +61,7 @@ let ContainerApp=compose(
 )(App);
 
 const SocialNetworkApp=()=>{
-    return <BrowserRouter>
+    return <BrowserRouter  basename="/losev-social-network" >
         <Provider store={store}>
             <ContainerApp />
         </Provider>

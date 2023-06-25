@@ -12,7 +12,7 @@ class ProfileContainer extends React.Component {
     changeProfile() {
         let userId = this.props.router.params.userId;
         if (!userId) {
-            userId = this.props.id
+            userId = this.props.id;
         }
         this.props.setProfile(userId);
         this.props.getUserStatus(userId)
@@ -30,7 +30,8 @@ class ProfileContainer extends React.Component {
 
         return (
             <Profile {...this.props} profile={this.props.profile} status={this.props.status}
-                     updateUserStatus={this.props.updateUserStatus} isOwner={!this.props.router.params.userId}/>
+                     updateUserStatus={this.props.updateUserStatus}
+                     isOwner={!this.props.router.params.userId || this.props.router.params.userId==this.props.id}/>
         )
     }
 }

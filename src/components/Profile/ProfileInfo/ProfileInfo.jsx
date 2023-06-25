@@ -4,9 +4,16 @@ import Preloader from "../../Common/Preloader/Preloader";
 import UsersPhoto from "../../../assets/images/Users.png";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks"
 
+
 const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Preloader/>
+    }
+
+    const addProfilePhotoFile=(e)=>{
+        if (e.currentTarget.files[0]) {
+            props.setProfilePhoto(e.currentTarget.files[0]);
+        }
     }
 
     return (
@@ -18,7 +25,8 @@ const ProfileInfo = (props) => {
             </div>
             <div className={s.profile}>
                 <div>
-                    <img src={!props.profile.photos.large ? UsersPhoto : props.profile.photos.large}/>
+                    <img src={!props.profile.photos.large ? UsersPhoto : props.profile.photos.large} className={s.mainfoto}/>
+                    {props.isOwner && <input type="file" onChange={addProfilePhotoFile}/>}
                 </div>
                 <div>
                     <div>

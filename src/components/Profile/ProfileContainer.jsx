@@ -20,7 +20,7 @@ class ProfileContainer extends React.Component {
 
     componentDidMount() {this.changeProfile();}
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.router.params.userId != this.props.router.params.userId) {
+        if (prevProps.router.params.userId !== this.props.router.params.userId) {
             this.changeProfile();
         }
     }

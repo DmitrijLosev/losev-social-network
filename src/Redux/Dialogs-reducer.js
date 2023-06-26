@@ -13,7 +13,7 @@ let initialState = {
         {id: 2, message: 'I love u, dady!'},
         {id: 3, message: 'How are u?'},
         {id: 4, message: 'Where are u?'},
-        {id: 5, message: 'IT-KAMASUTRA is cool!'},
+        {id: 5, message: 'IT is cool!'},
         {id: 6, message: 'I found a mega note for u!'}],
 };
 export const addMessage = (NewMessage) => ({type: ADD_MESSAGE, NewMessage});

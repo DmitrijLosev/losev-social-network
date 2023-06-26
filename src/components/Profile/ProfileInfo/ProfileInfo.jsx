@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css';
 import Preloader from "../../Common/Preloader/Preloader";
 import UsersPhoto from "../../../assets/images/Users.png";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks"
+import ProfileDataForm from "./ProfileDataForm";
 
 
 const ProfileInfo = (props) => {
@@ -10,11 +11,16 @@ const ProfileInfo = (props) => {
         return <Preloader/>
     }
 
-    const addProfilePhotoFile=(e)=>{
+    const addProfilePhotoFile = (e) => {
         if (e.currentTarget.files[0]) {
             props.setProfilePhoto(e.currentTarget.files[0]);
         }
     }
+
+    const onSubmit =(formData)=>{
+        props.sendProfileData(formData);
+    }
+
 
     return (
         <div>
@@ -25,31 +31,49 @@ const ProfileInfo = (props) => {
             </div>
             <div className={s.profile}>
                 <div>
-                    <img src={!props.profile.photos.large ? UsersPhoto : props.profile.photos.large} className={s.mainfoto}/>
-                    {props.isOwner && <input type="file" onChange={addProfilePhotoFile}/>}
+                    <img src={!props.profile.photos.large ? UsersPhoto : props.profile.photos.large}
+                         className={s.mainfoto}/>
+                    {props.isOwner && <div>Change Profile Photo<input type="file" onChange={addProfilePhotoFile}/></div>}
                 </div>
                 <div>
                     <div>
-                        <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
+                        <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}
+                                                isOwner={props.isOwner}/>
                     </div>
-                    <div>NICKNAME: {props.profile.fullName}</div>
-                    <div>Information about me: {props.profile.aboutMe}</div>
-                    <div>Looking for a job:{props.profile.lookingForAJob ? 'yes' : 'no'}</div>
-                    <div>What am I looking for? : {props.profile.lookingForAJobDescription}</div>
-                    <div>Contacts:</div>
-                    <div>facebook: {props.profile.contacts.facebook}</div>
-                    <div>website: {props.profile.contacts.website}</div>
-                    <div>twitter: {props.profile.contacts.twitter}</div>
-                    <div>vk: {props.profile.contacts.vk}</div>
-                    <div>instagram: {props.profile.contacts.instagram}</div>
-                    <div>youtube: {props.profile.contacts.youtube}</div>
-                    <div>mainLink: {props.profile.contacts.mainLink}</div>
-                    <div>github: {props.profile.contacts.github}</div>
-                    <div>github: {props.profile.contacts.github}</div>
+
+                    {props.editModeOfProfileData ? <ProfileDataForm onSubmit={onSubmit} initialValues={props.profile}/>
+                        : <ProfileData profile={props.profile} isOwner={props.isOwner}
+                                       changeEditModeOfProfileData={props.changeEditModeOfProfileData}/>}
+
                 </div>
             </div>
         </div>
     );
 }
 
+const ProfileData = ({profile,isOwner,changeEditModeOfProfileData}) => {
+
+    const onChangeEditModeOfProfileData = ()=>{
+       changeEditModeOfProfileData(true);
+    }
+
+    return <div>
+        {isOwner && <button onClick={onChangeEditModeOfProfileData}>Format Profile Information</button>}
+        <div><b>Full Name</b>: {profile.fullName}</div>
+        <div><b>About me</b>: {profile.AboutMe}</div>
+        <div><b>Looking for a job</b>:{profile.lookingForAJob ? 'yes' : 'no'}</div>
+        <div><b>About my skills</b>: {profile.lookingForAJobDescription}</div>
+        <div><b>Contacts</b>:</div>
+        <div className={s.contacts}>
+            {Object.keys(profile.contacts).map(key => {
+                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+            })}
+        </div>
+    </div>
+
+}
+
+const Contact = ({contactTitle, contactValue}) => {
+    return <div><b>{contactTitle}</b> :{contactValue}</div>
+}
 export default ProfileInfo;

@@ -20,3 +20,22 @@
 {
 max-width:400px;
 }
+.contacts
+{
+    padding-left:20px
+}
+.button
+{
+    padding:10px;
+
+}
+.formSummuryError {
+    border: solid red 2px;
+    padding:5px;
+    color:red;
+}
+.statuscomment
+{
+    font-weight: 50;
+    color:grey;
+}

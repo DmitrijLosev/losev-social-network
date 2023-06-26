@@ -10,7 +10,10 @@ const Profile = (props) => {
         <div>
             <ProfileInfo profile={props.profile} status={props.status}
                          updateUserStatus={props.updateUserStatus} isOwner={props.isOwner}
-                         setProfilePhoto={props.setProfilePhoto}/>
+                         setProfilePhoto={props.setProfilePhoto}
+                         editModeOfProfileData={props.editModeOfProfileData}
+                         changeEditModeOfProfileData={props.changeEditModeOfProfileData}
+                         sendProfileData={props.sendProfileData}/>
             <MypostsContainer/>
         </div>);
 }

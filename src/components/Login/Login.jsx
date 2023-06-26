@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {login} from "../../Redux/Auth-reducer";
 import s from "./../Common/FormsControls/FormsControls.module.css"
 
-const LoginForm = ({handleSubmit,error}) => {
+const LoginForm = ({handleSubmit,error,captcha}) => {
     return (
         <form onSubmit={handleSubmit}>
             {FieldForm('E-mail','email','',Input,[required],'')}
@@ -16,6 +16,8 @@ const LoginForm = ({handleSubmit,error}) => {
             {error && <div className={s.formSummuryError}>
                 {error}
             </div>}
+            {captcha && <img src={captcha}/>}
+            {captcha && FieldForm('','captcha','',Input,[required],'')}
             <div>
                 <button>Login</button>
             </div>
@@ -29,7 +31,7 @@ const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 const Login = (props) => {
 
     let onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     };
     if (props.isAuth) {
         return <Navigate to={"/Profile/"+props.id}/>
@@ -39,7 +41,7 @@ const Login = (props) => {
 
     return <div>
         <h1>LOGIN</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captcha={props.captcha}/>
     </div>
 }
 
@@ -48,7 +50,8 @@ const Login = (props) => {
 let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth,
-        id:state.auth.id
+        id:state.auth.id,
+        captcha:state.auth.captcha
     }
 }
 

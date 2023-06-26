@@ -20,9 +20,9 @@ const ProfileStatusWithHooks = (props) => {
         setStatus(e.currentTarget.value)
     };
 
-    return (
+    return (<div>
+        {props.isOwner && <div className={s.statuscomment}>change status on double click</div>}
         <div className={s.status}><b>STATUS:</b>
-            {props.isOwner && <div className={s.statuscomment}>change status on double click</div>}
             {!EditMode ?
                 <div>
                     <span onDoubleClick={activateEditMode}>{props.status || 'NO STATUS'}</span>
@@ -33,7 +33,7 @@ const ProfileStatusWithHooks = (props) => {
                     />
                 </div>}
         </div>
-
+        </div>
     )
 
 }

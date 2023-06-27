@@ -24,7 +24,7 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST:
             return {
                 ...state,
-                posts: [...state.posts, {id: 7, post:action.NewPostText, likesCount: 0}],
+                posts: [...state.posts, {id:state.posts[state.posts.length-1].id+1, post:action.NewPostText, likesCount: 0}],
             };
         case SET_USER_PROFILE:
             return {

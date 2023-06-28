@@ -27,16 +27,13 @@ const User = ({user, followingInProgress, followUser, unfollowUser}) => {
                    <div>
                    {user.name}
                </div>
+             <div>
+                   USER ID:{user.id}
+               </div>
                    <div>
-                   {user.status}
+                   {!user.status ? 'NO STATUS' : 'STATUS:  '+ user.status}
                </div></span>
         <span>
-                   <div>
-                       {"user.location.country"}
-                   </div>
-                       <div>
-                           {"user.location.city"}
-               </div>
                </span>
     </div>
 }

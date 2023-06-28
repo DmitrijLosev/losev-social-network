@@ -25,7 +25,7 @@ const User = ({user, followingInProgress, followUser, unfollowUser}) => {
                </span>
         <span>
                    <div>
-                   {user.name}
+                   USER NAME:{user.name}
                </div>
              <div>
                    USER ID:{user.id}

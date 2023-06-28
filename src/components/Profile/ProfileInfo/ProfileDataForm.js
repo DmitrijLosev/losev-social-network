@@ -8,7 +8,6 @@ import {reduxForm} from "redux-form";
 
 const ProfileData = ({initialValues,handleSubmit,error}) => {
 
-
     return <form onSubmit={handleSubmit}>
         {error && <div className={s.formSummuryError}>
             {error}

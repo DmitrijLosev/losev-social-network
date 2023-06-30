@@ -32,6 +32,7 @@ const ProfileStatusWithHooks = (props) => {
                            value={status}
                     />
                 </div>}
+            {props.updateStatusErrorMessage &&<div className={s.formSummuryError}>{props.updateStatusErrorMessage}</div>}
         </div>
         </div>
     )

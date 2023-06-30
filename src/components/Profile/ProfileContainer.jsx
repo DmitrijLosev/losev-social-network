@@ -47,7 +47,8 @@ let mapStateToProps = (state) => {
         profile: state.ProfilePage.profile,
         status: state.ProfilePage.status,
         id: state.auth.id,
-        editModeOfProfileData: state.ProfilePage.editModeOfProfileData
+        editModeOfProfileData: state.ProfilePage.editModeOfProfileData,
+        updateStatusErrorMessage: state.ProfilePage.updateStatusErrorMessage
     }
 };
 export default compose(

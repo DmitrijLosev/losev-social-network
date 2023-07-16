@@ -7,3 +7,7 @@
     height: 30px;
     border-radius: 10px;
 }
+.liked {
+    border: solid 1px red;
+    color:red
+}

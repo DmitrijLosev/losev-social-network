@@ -8,7 +8,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/classnames": "^2.3.1",
-    "@types/jest": "^29.5.3",
     "@types/node": "^20.3.3",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
@@ -27,12 +26,13 @@
     "redux-form": "^8.3.10",
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.8",
-    "ts-jest": "^29.1.1",
     "typescript-plugin-css-modules": "^5.0.1",
+    "v1": "^1.0.0",
     "v6": "^0.0.0",
     "v9": "^2.0.5",
     "web-vitals": "^2.1.4"
   },
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -60,11 +60,22 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@jest/globals": "^29.6.1",
     "@types/css-modules": "^1.0.2",
+    "@types/jest": "^29.5.3",
     "@types/react-test-renderer": "^18.0.0",
+    "babel-jest": "^29.6.1",
     "file-loader": "^6.2.0",
     "gh-pages": "^5.0.0",
     "react-test-renderer": "^18.2.0",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
+  },
+  "jest":{
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"}
   }
 }

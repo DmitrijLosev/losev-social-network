@@ -2,6 +2,7 @@ export type PostsType={
     id:number
     post:string
     likesCount:number
+    likedPost:boolean
 }
 export type ProfileType={
     userId: number

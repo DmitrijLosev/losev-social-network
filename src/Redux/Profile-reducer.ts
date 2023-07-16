@@ -8,15 +8,15 @@ import {getAuth} from "./Auth-reducer";
 
 let initialState = {
     posts: [
-        {id: 1, post: 'Hey, how are u?', likesCount: 13},
-        {id: 2, post: 'It is my first post!', likesCount: 22},
-        {id: 3, post: 'HAHAHAHAH', likesCount: 77},
-        {id: 4, post: 'BLALBLAL', likesCount: 11},
-        {id: 5, post: 'YOYOYO', likesCount: 3}] as Array<PostsType>,
+        {id: 1, post: 'Hey, how are u?', likesCount: 13, likedPost: false},
+        {id: 2, post: 'It is my first post!', likesCount: 22, likedPost: true},
+        {id: 3, post: 'HAHAHAHAH', likesCount: 77, likedPost: false},
+        {id: 4, post: 'BLALBLAL', likesCount: 11, likedPost: true},
+        {id: 5, post: 'YOYOYO', likesCount: 3, likedPost: false}] as Array<PostsType>,
     profile: null as null | ProfileType,
     status: "" as string | "",
     editModeOfProfileData: false,
-    updateStatusErrorMessage: null as null | Array<string>
+    updateStatusErrorMessage: null as null | Array<string>,
 };
 
 const profileReducer = (state = initialState, action: ActionsType): initialStateType => {
@@ -25,9 +25,10 @@ const profileReducer = (state = initialState, action: ActionsType): initialState
             return {
                 ...state,
                 posts: [...state.posts, {
-                    id: state.posts[state.posts.length - 1].id + 1,
+                    id:state.posts.length===0 ? 0 : state.posts[state.posts.length - 1].id + 1,
                     post: action.NewPostText,
-                    likesCount: 0
+                    likesCount: Math.floor(Math.random() * (100)) + 1,
+                    likedPost: false
                 }],
             };
         case 'ProfilePage/SET_USER_PROFILE':
@@ -54,6 +55,25 @@ const profileReducer = (state = initialState, action: ActionsType): initialState
                 ...state,
                 updateStatusErrorMessage: action.message
             }
+        case 'ProfilePage/SET_DELETED_POST_ID':
+            return {
+                ...state,
+                posts: [...state.posts.filter(p => p.id !== action.id)]
+            }
+        case 'ProfilePage/SET_LIKE_OR_DISLIKE':
+            return {
+                ...state,
+                posts: state.posts.map((post) => {
+                    if (post.id === action.id) {
+                        return {
+                            ...post,
+                            likesCount: post.likedPost ? post.likesCount - 1 : post.likesCount + 1,
+                            likedPost: !post.likedPost,
+                        };
+                    }
+                    return post;
+                }),
+            }
         default:
             return state;
 
@@ -69,7 +89,9 @@ export const actions = {
         type: 'ProfilePage/CHANGE_EDIT_MODE_PROFILE_DATA',
         edit
     } as const),
-    updateStatusError: (message: Array<string> | null) => ({type: 'ProfilePage/UPDATE_STATUS_ERROR', message} as const)
+    updateStatusError: (message: Array<string> | null) => ({type: 'ProfilePage/UPDATE_STATUS_ERROR', message} as const),
+    deleteChoosedPost: (id: number) => ({type: 'ProfilePage/SET_DELETED_POST_ID', id} as const),
+    likeOrDislikePost: (id: number) => ({type: 'ProfilePage/SET_LIKE_OR_DISLIKE', id} as const)
 }
 
 export const setProfile = (userId: number): ThunkCommonType<ActionsType> => async (dispatch) => {
@@ -104,7 +126,9 @@ export const sendProfileData = (Data: ProfileType): ThunkCommonType<ActionsType 
         if (userId != null) {
             dispatch(setProfile(userId));
             dispatch(actions.changeEditModeOfProfileData(false))
-        } else {dispatch(getAuth())}
+        } else {
+            dispatch(getAuth())
+        }
     } else {
         let message = data.messages && data.messages.length > 0 ? data.messages : ["Some error"]
         dispatch(stopSubmit('profileData', {_error: message}))

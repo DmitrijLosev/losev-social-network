@@ -36,7 +36,7 @@ const ProfileInfo:React.FC<Props> = (props) => {
                     <img src={!props.profile.photos.large ? UsersPhoto : props.profile.photos.large}
                          className={s.mainfoto}/>
                     {props.isOwner && <div className={s.statuscomment}>
-                        change profile photo<input type="file" onChange={addProfilePhotoFile}/></div>}
+                        change profile photo<input type="file" accept="image/*" onChange={addProfilePhotoFile}/></div>}
                 </div>
                 <div>
                     <div>

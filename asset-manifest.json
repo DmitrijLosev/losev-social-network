@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/losev-social-network/static/css/main.5c5ccbfd.css",
-    "main.js": "/losev-social-network/static/js/main.c7819194.js",
+    "main.css": "/losev-social-network/static/css/main.656c25f4.css",
+    "main.js": "/losev-social-network/static/js/main.5509e9b4.js",
     "static/css/633.8e7d41d9.chunk.css": "/losev-social-network/static/css/633.8e7d41d9.chunk.css",
     "static/js/633.a47ea4d6.chunk.js": "/losev-social-network/static/js/633.a47ea4d6.chunk.js",
     "static/css/52.7c424aab.chunk.css": "/losev-social-network/static/css/52.7c424aab.chunk.css",
     "static/js/52.69279b51.chunk.js": "/losev-social-network/static/js/52.69279b51.chunk.js",
     "static/media/ZZ5H.gif": "/losev-social-network/static/media/ZZ5H.a1a996746e5e48352c81.gif",
     "index.html": "/losev-social-network/index.html",
-    "main.5c5ccbfd.css.map": "/losev-social-network/static/css/main.5c5ccbfd.css.map",
-    "main.c7819194.js.map": "/losev-social-network/static/js/main.c7819194.js.map",
+    "main.656c25f4.css.map": "/losev-social-network/static/css/main.656c25f4.css.map",
+    "main.5509e9b4.js.map": "/losev-social-network/static/js/main.5509e9b4.js.map",
     "633.8e7d41d9.chunk.css.map": "/losev-social-network/static/css/633.8e7d41d9.chunk.css.map",
     "633.a47ea4d6.chunk.js.map": "/losev-social-network/static/js/633.a47ea4d6.chunk.js.map",
     "52.7c424aab.chunk.css.map": "/losev-social-network/static/css/52.7c424aab.chunk.css.map",
     "52.69279b51.chunk.js.map": "/losev-social-network/static/js/52.69279b51.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5c5ccbfd.css",
-    "static/js/main.c7819194.js"
+    "static/css/main.656c25f4.css",
+    "static/js/main.5509e9b4.js"
   ]
 }

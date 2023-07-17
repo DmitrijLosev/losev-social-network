@@ -6,14 +6,12 @@ import {maxLengthCreator, required} from "../../../utils/validators/validators"
 import {FieldForm, Textarea} from "../../Common/FormsControls/FormsControls";
 import {MapDispatchStatePropsType, MapStatePropsType} from "./MypostsContainer";
 
-let maxLength15=maxLengthCreator(50)
+let maxLength15=maxLengthCreator(15)
 
 const Myposts:React.FC<MapStatePropsType&MapDispatchStatePropsType> = (props) => {
 
     let postsElements = props.posts.map(p =>
-        <Post key={p.id} id={p.id} post={p.post} like={p.likesCount} likedPost={p.likedPost} photo={props.photo}
-              deleteChoosedPost={props.deleteChoosedPost}
-              likeOrDislikePost={props.likeOrDislikePost} idAuth={props.idAuth} idProfile={props.idProfile}/>)
+        <Post key={p.id} message={p.post} like={p.likesCount}/>)
 
     const onSubmit=(formData:formDataNewPostType)=>{
         props.addPost(formData.NewPostText)}

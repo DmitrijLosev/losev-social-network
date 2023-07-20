@@ -1,23 +1,25 @@
 {
   "files": {
     "main.css": "/losev-social-network/static/css/main.656c25f4.css",
-    "main.js": "/losev-social-network/static/js/main.adea5f7f.js",
+    "main.js": "/losev-social-network/static/js/main.1e6b3174.js",
     "static/css/633.8e7d41d9.chunk.css": "/losev-social-network/static/css/633.8e7d41d9.chunk.css",
     "static/js/633.a47ea4d6.chunk.js": "/losev-social-network/static/js/633.a47ea4d6.chunk.js",
-    "static/css/52.7c424aab.chunk.css": "/losev-social-network/static/css/52.7c424aab.chunk.css",
-    "static/js/52.69279b51.chunk.js": "/losev-social-network/static/js/52.69279b51.chunk.js",
+    "static/css/859.291a81de.chunk.css": "/losev-social-network/static/css/859.291a81de.chunk.css",
+    "static/js/859.0b9c9b68.chunk.js": "/losev-social-network/static/js/859.0b9c9b68.chunk.js",
+    "static/js/586.bbaefea8.chunk.js": "/losev-social-network/static/js/586.bbaefea8.chunk.js",
     "static/media/UserMock.png": "/losev-social-network/static/media/UserMock.c68cf214b4ece59e725d.png",
     "static/media/ZZ5H.gif": "/losev-social-network/static/media/ZZ5H.a1a996746e5e48352c81.gif",
     "index.html": "/losev-social-network/index.html",
     "main.656c25f4.css.map": "/losev-social-network/static/css/main.656c25f4.css.map",
-    "main.adea5f7f.js.map": "/losev-social-network/static/js/main.adea5f7f.js.map",
+    "main.1e6b3174.js.map": "/losev-social-network/static/js/main.1e6b3174.js.map",
     "633.8e7d41d9.chunk.css.map": "/losev-social-network/static/css/633.8e7d41d9.chunk.css.map",
     "633.a47ea4d6.chunk.js.map": "/losev-social-network/static/js/633.a47ea4d6.chunk.js.map",
-    "52.7c424aab.chunk.css.map": "/losev-social-network/static/css/52.7c424aab.chunk.css.map",
-    "52.69279b51.chunk.js.map": "/losev-social-network/static/js/52.69279b51.chunk.js.map"
+    "859.291a81de.chunk.css.map": "/losev-social-network/static/css/859.291a81de.chunk.css.map",
+    "859.0b9c9b68.chunk.js.map": "/losev-social-network/static/js/859.0b9c9b68.chunk.js.map",
+    "586.bbaefea8.chunk.js.map": "/losev-social-network/static/js/586.bbaefea8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.656c25f4.css",
-    "static/js/main.adea5f7f.js"
+    "static/js/main.1e6b3174.js"
   ]
 }

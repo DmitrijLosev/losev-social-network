@@ -34,8 +34,8 @@ const UsersUseFormChanger:React.FC<Props> = (props) => {
             <input {...register("searchName")} placeholder={"Entry Name of search user"} />
             <select {...register("UsersShowProperty")} >
                 <option value="null">Show all users</option>
-                <option value="true">Shaw followed users</option>
-                <option value="false">Shaw unfollowed users</option>
+                <option value="true">Show followed users</option>
+                <option value="false">Show unfollowed users</option>
             </select>
             <input type="submit"  value="Accept Searching Property"/>
             <p className={s.error}>{errors.searchName?.message}</p>

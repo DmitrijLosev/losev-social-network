@@ -8,8 +8,11 @@ export type GetUsersType={
 }
 
 export const UsersAPI = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`)
+
+    getUsers(currentPage: number, pageSize: number,term:string,friend:boolean | null) {
+        let setFriend=friend===null ? "" : friend;
+        return instance.get<GetUsersType>
+        (`users?page=${currentPage}&count=${pageSize}&term=${term}&friend=${setFriend}`)
             .then (res=>res.data)
     },
     deleteFollow(id: number) {

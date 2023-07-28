@@ -12,11 +12,13 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     followingInProgress: [] as Array<number>,
-    term:"",
-    friend:null as boolean | null
+    filter: {
+        term: "",
+        friend: null as boolean | null
+    }
 };
 
-const UsersReducer = (state = initialState, action:ActionsType): InitialStateType => {
+const UsersReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'UsersPage/FOLLOW':
             return {
@@ -33,7 +35,7 @@ const UsersReducer = (state = initialState, action:ActionsType): InitialStateTyp
         case 'UsersPage/SET_CURRENT_PAGE':
             return {...state, currentPage: action.currentPage}
         case 'UsersPage/SET_USERS_SEARCH_PARAMS':
-            return {...state, term: action.term, friend:action.friend}
+            return {...state, filter: action.filter}
         case 'UsersPage/SET_TOTAL_USERS_COUNT':
             return {...state, totalUsersCount: action.totalUsersCount}
 
@@ -58,29 +60,30 @@ export const actions = {
     setUsers: (users: Array<UserType>) => ({type: 'UsersPage/SET_USERS', users} as const),
     setCurrentPage: (currentPage: number) => ({type: 'UsersPage/SET_CURRENT_PAGE', currentPage} as const),
     setTotalUsersCount: (totalUsersCount: number) =>
-        ({type:'UsersPage/SET_TOTAL_USERS_COUNT', totalUsersCount} as const),
+        ({type: 'UsersPage/SET_TOTAL_USERS_COUNT', totalUsersCount} as const),
     toggleIsFetching: (isFetching: boolean) => ({type: 'TOGGLE_IS_FETCHING', isFetching} as const),
     toggleFollowingProgress: (isFetching: boolean, userId: number) => ({
         type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId
     } as const),
-    setUsersSearchParams: (term: string, friend: boolean | null) => ({
-        type: 'UsersPage/SET_USERS_SEARCH_PARAMS', term, friend
+    setUsersSearchParams: (filter:FilterType) => ({
+        type: 'UsersPage/SET_USERS_SEARCH_PARAMS', filter
     } as const)
 }
 
 export const getUsers = (currentPage: number, pageSize: number,
-                         term:string,friend:boolean | null):ThunkCommonType<ActionsType> =>
+                         filter:FilterType): ThunkCommonType<ActionsType> =>
     async (dispatch) => {
-    dispatch(actions.toggleIsFetching(true));
-    dispatch(actions.setCurrentPage(currentPage));
-    let data = await UsersAPI.getUsers(currentPage, pageSize,term,friend)
-    dispatch(actions.toggleIsFetching(false));
-    dispatch(actions.setUsers(data.items));
-    dispatch(actions.setTotalUsersCount(data.totalCount));
-}
+        dispatch(actions.toggleIsFetching(true));
+        dispatch(actions.setCurrentPage(currentPage));
+        dispatch(actions.setUsersSearchParams(filter))
+        let data = await UsersAPI.getUsers(currentPage, pageSize,filter)
+        dispatch(actions.toggleIsFetching(false));
+        dispatch(actions.setUsers(data.items));
+        dispatch(actions.setTotalUsersCount(data.totalCount));
+    }
 
-const _followOrUnfollow = async (dispatch:Dispatch<ActionsType>, userId: number, apiMethod: apiMethodTypes,
-                                ActionCreator:(userId:number)=>ActionsType) => {
+const _followOrUnfollow = async (dispatch: Dispatch<ActionsType>, userId: number, apiMethod: apiMethodTypes,
+                                 ActionCreator: (userId: number) => ActionsType) => {
     dispatch(actions.toggleFollowingProgress(true, userId));
     let data = await apiMethod(userId);
     if (data.resultCode === ResultCodeEnum.Success) {
@@ -88,14 +91,15 @@ const _followOrUnfollow = async (dispatch:Dispatch<ActionsType>, userId: number,
     }
     dispatch(actions.toggleFollowingProgress(false, userId))
 }
-export const followUser = (userId: number):ThunkCommonType<ActionsType> => async (dispatch) => {
-   await _followOrUnfollow(dispatch, userId, UsersAPI.deleteFollow.bind(UsersAPI), actions.unfollow);
+export const followUser = (userId: number): ThunkCommonType<ActionsType> => async (dispatch) => {
+    await _followOrUnfollow(dispatch, userId, UsersAPI.deleteFollow.bind(UsersAPI), actions.unfollow);
 }
-export const unfollowUser = (userId: number):ThunkCommonType<ActionsType> => async (dispatch) => {
-   await _followOrUnfollow(dispatch, userId, UsersAPI.postFollow.bind(UsersAPI), actions.follow);
+export const unfollowUser = (userId: number): ThunkCommonType<ActionsType> => async (dispatch) => {
+    await _followOrUnfollow(dispatch, userId, UsersAPI.postFollow.bind(UsersAPI), actions.follow);
 }
 export default UsersReducer;
 
 export type InitialStateType = typeof initialState
 export type ActionsType = InferActionType<typeof actions>
-type apiMethodTypes=typeof UsersAPI.deleteFollow | typeof UsersAPI.postFollow
+export type FilterType={term: string , friend:boolean | null}
+type apiMethodTypes = typeof UsersAPI.deleteFollow | typeof UsersAPI.postFollow

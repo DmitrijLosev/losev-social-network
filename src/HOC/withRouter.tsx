@@ -13,7 +13,6 @@ export function withRouter<WP extends ParamsType> (Component:ComponentType<WP>) 
         let params = useParams();
         let location = useLocation();
 
-
         return <Component {...props as WP} router={{params,location}}/>
     }
     return WithUrlDataContainerComponent;

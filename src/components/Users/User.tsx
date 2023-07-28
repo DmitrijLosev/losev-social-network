@@ -7,10 +7,10 @@ import {UserType} from "../../types/types";
 type Props={
     user:UserType
     followingInProgress:Array<number>
-    followUser:(id:number)=>void
-    unfollowUser:(id:number)=>void
+    onFollowUser:(id:number)=>void
+    onUnfollowUser:(id:number)=>void
 }
-const User:React.FC<Props> = ({user, followingInProgress, followUser, unfollowUser}) => {
+export const User:React.FC<Props> = ({user, followingInProgress, onFollowUser, onUnfollowUser}) => {
     return <div>
                <span>
                    <div>
@@ -22,10 +22,10 @@ const User:React.FC<Props> = ({user, followingInProgress, followUser, unfollowUs
                    <div>
                    {user.followed ?
                        <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
-                           followUser(user.id)
+                           onFollowUser(user.id)
                        }}>Unfollow</button> :
                        <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
-                           unfollowUser(user.id);
+                           onUnfollowUser(user.id);
                        }}>Follow</button>}
 
                </div>
@@ -44,4 +44,3 @@ const User:React.FC<Props> = ({user, followingInProgress, followUser, unfollowUs
                </span>
     </div>
 }
-export default User;

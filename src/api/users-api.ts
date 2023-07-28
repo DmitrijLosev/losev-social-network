@@ -1,5 +1,6 @@
 import {CommonResponseType, instance} from "./api";
 import {UserType} from "../types/types";
+import {FilterType} from "../Redux/Users-reducer";
 
 export type GetUsersType={
     items:Array<UserType>
@@ -9,10 +10,10 @@ export type GetUsersType={
 
 export const UsersAPI = {
 
-    getUsers(currentPage: number, pageSize: number,term:string,friend:boolean | null) {
-        let setFriend=friend===null ? "" : friend;
+    getUsers(currentPage: number, pageSize: number,filter:FilterType) {
         return instance.get<GetUsersType>
-        (`users?page=${currentPage}&count=${pageSize}&term=${term}&friend=${setFriend}`)
+        (`users?page=${currentPage}&count=${pageSize}`+(filter.term==="" ? "" : `&term=${filter.term}`)
+            + (filter.friend===null ? "" : `&friend=${filter.friend}`))
             .then (res=>res.data)
     },
     deleteFollow(id: number) {

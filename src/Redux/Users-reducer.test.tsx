@@ -12,8 +12,8 @@ beforeEach(()=>{state={
     currentPage: 1,
     isFetching: false,
     followingInProgress: [],
-    term:"",
-    friend:null
+    filter:{term:"",
+    friend:null}
 }});
 
 describe("usersReducer Test", () => {

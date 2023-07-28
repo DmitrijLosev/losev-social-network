@@ -5,22 +5,24 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import Friends from './components/Friends/Friends'
-import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
-import {withRouter} from "./HOC/withRouter";
 import {globalError, GlobalErrorType, initializeApp} from "./Redux/App-reducer";
 import Preloader from "./components/Common/Preloader/Preloader";
 import store, {AppStateType} from "./Redux/redux-store";
 import {withSuspense} from "./HOC/withSuspense";
+import {Login} from "./components/Login/Login";
+import {Header} from "./components/Header/Header";
+import {ReactRouter6Adapter} from "use-query-params/adapters/react-router-6";
+import {QueryParamProvider} from "use-query-params";
+
 
 const DialogsContainer = React.lazy(
     () => import("./components/Dialogs/DialogsContainer"))
-const UsersContainer = React.lazy(
-    () => import("./components/Users/UsersContainer"));
+const UsersPage = React.lazy(
+    () => import("./components/Users/UsersPage"));
 
 type MapStatePropsType=ReturnType<typeof MapStateToProps>
 type MapDispatchPropsType={
@@ -49,7 +51,7 @@ class App extends React.Component<PropsType> {
         if (!this.props.InitializationComplete) {return <Preloader/>}
         return (
             <div className='app-wrapper'>
-                <HeaderContainer/>
+                <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     {this.props.globalErrorText && <div className='globalError'><b>{this.props.globalErrorText.code}</b>
@@ -62,7 +64,7 @@ class App extends React.Component<PropsType> {
                         <Route path="/music/*" element={<Music/>}/>
                         <Route path="/settings/*" element={<Settings/>}/>
                         <Route path="/friends/*" element={<Friends/>}/>
-                        <Route path="/users/*" element={withSuspense(UsersContainer)}/>
+                        <Route path="/users/*" element={withSuspense(UsersPage)}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="*" element={<div>404 NOT FOUND</div>}/>
                     </Routes>
@@ -79,15 +81,19 @@ let MapStateToProps=(state:AppStateType)=>{
     }
 }
 const ContainerApp = compose<ComponentType>(
-    withRouter,
     connect<MapStatePropsType,MapDispatchPropsType, {},AppStateType>(MapStateToProps,{initializeApp,globalError})
 )(App);
 
 const SocialNetworkApp:React.FC=()=>{
+
     return <BrowserRouter  basename="/losev-social-network" >
+        <QueryParamProvider adapter={ReactRouter6Adapter}>
         <Provider store={store}>
             <ContainerApp />
         </Provider>
+        </QueryParamProvider>
     </BrowserRouter>
 }
 export default SocialNetworkApp;
+
+

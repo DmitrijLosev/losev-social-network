@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/289.dc7c4d1f.chunk.css","mappings":"AAAA,uBAGI,WAAW,CACX,YAAY,CAFZ,WAIJ,CAEA,mBAEI,aACJ","sources":["components/Users/User.module.css"],"sourcesContent":[".userFoto\r\n{\r\n    width:100px;\r\n    height:80px;\r\n    padding:10px;\r\n\r\n}\r\n\r\n.error\r\n{\r\n    color:darkred;\r\n}\r\n"],"names":[],"sourceRoot":""}

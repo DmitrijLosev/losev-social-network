@@ -1,25 +1,29 @@
 {
   "files": {
-    "main.css": "/losev-social-network/static/css/main.656c25f4.css",
-    "main.js": "/losev-social-network/static/js/main.6ed2e787.js",
+    "main.css": "/losev-social-network/static/css/main.10f87ba9.css",
+    "main.js": "/losev-social-network/static/js/main.22f6d8cd.js",
     "static/css/633.8e7d41d9.chunk.css": "/losev-social-network/static/css/633.8e7d41d9.chunk.css",
     "static/js/633.a47ea4d6.chunk.js": "/losev-social-network/static/js/633.a47ea4d6.chunk.js",
-    "static/css/618.d8a35e70.chunk.css": "/losev-social-network/static/css/618.d8a35e70.chunk.css",
-    "static/js/618.02fb0006.chunk.js": "/losev-social-network/static/js/618.02fb0006.chunk.js",
-    "static/js/586.f47e8d63.chunk.js": "/losev-social-network/static/js/586.f47e8d63.chunk.js",
+    "static/css/863.617f798c.chunk.css": "/losev-social-network/static/css/863.617f798c.chunk.css",
+    "static/js/863.55c8187c.chunk.js": "/losev-social-network/static/js/863.55c8187c.chunk.js",
+    "static/css/289.dc7c4d1f.chunk.css": "/losev-social-network/static/css/289.dc7c4d1f.chunk.css",
+    "static/js/289.299e9741.chunk.js": "/losev-social-network/static/js/289.299e9741.chunk.js",
+    "static/js/586.94b58da7.chunk.js": "/losev-social-network/static/js/586.94b58da7.chunk.js",
     "static/media/UserMock.png": "/losev-social-network/static/media/UserMock.c68cf214b4ece59e725d.png",
     "static/media/ZZ5H.gif": "/losev-social-network/static/media/ZZ5H.a1a996746e5e48352c81.gif",
     "index.html": "/losev-social-network/index.html",
-    "main.656c25f4.css.map": "/losev-social-network/static/css/main.656c25f4.css.map",
-    "main.6ed2e787.js.map": "/losev-social-network/static/js/main.6ed2e787.js.map",
+    "main.10f87ba9.css.map": "/losev-social-network/static/css/main.10f87ba9.css.map",
+    "main.22f6d8cd.js.map": "/losev-social-network/static/js/main.22f6d8cd.js.map",
     "633.8e7d41d9.chunk.css.map": "/losev-social-network/static/css/633.8e7d41d9.chunk.css.map",
     "633.a47ea4d6.chunk.js.map": "/losev-social-network/static/js/633.a47ea4d6.chunk.js.map",
-    "618.d8a35e70.chunk.css.map": "/losev-social-network/static/css/618.d8a35e70.chunk.css.map",
-    "618.02fb0006.chunk.js.map": "/losev-social-network/static/js/618.02fb0006.chunk.js.map",
-    "586.f47e8d63.chunk.js.map": "/losev-social-network/static/js/586.f47e8d63.chunk.js.map"
+    "863.617f798c.chunk.css.map": "/losev-social-network/static/css/863.617f798c.chunk.css.map",
+    "863.55c8187c.chunk.js.map": "/losev-social-network/static/js/863.55c8187c.chunk.js.map",
+    "289.dc7c4d1f.chunk.css.map": "/losev-social-network/static/css/289.dc7c4d1f.chunk.css.map",
+    "289.299e9741.chunk.js.map": "/losev-social-network/static/js/289.299e9741.chunk.js.map",
+    "586.94b58da7.chunk.js.map": "/losev-social-network/static/js/586.94b58da7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.656c25f4.css",
-    "static/js/main.6ed2e787.js"
+    "static/css/main.10f87ba9.css",
+    "static/js/main.22f6d8cd.js"
   ]
 }

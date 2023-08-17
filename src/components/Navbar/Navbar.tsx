@@ -37,16 +37,8 @@ const Navbar:React.FC = (props) => {
                 </NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/Friends' className={({isActive})=>isActive ? s.ActiveLink : ''}>
-                    <div className={s.itemfriends}>Friends</div>
-                    <div>
-                        <img className={s.friendsnavbarava}
-                             src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu9BLOXxMpRfFOvLIMDnALlswks3lUyC3S0w&usqp=CAU'></img>
-                        <img className={s.friendsnavbarava}
-                             src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu9BLOXxMpRfFOvLIMDnALlswks3lUyC3S0w&usqp=CAU'></img>
-                        <img className={s.friendsnavbarava}
-                             src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu9BLOXxMpRfFOvLIMDnALlswks3lUyC3S0w&usqp=CAU'></img>
-                    </div>
+                <NavLink to='/chat' className={({isActive})=>isActive ? s.ActiveLink : ''}>
+                    <div className={s.itemchat}>ChatWebSocket</div>
                 </NavLink>
             </div>
         </nav>

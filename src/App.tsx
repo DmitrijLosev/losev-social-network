@@ -4,7 +4,6 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import Friends from './components/Friends/Friends'
 import {BrowserRouter, Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {connect, Provider} from "react-redux";
@@ -19,10 +18,13 @@ import {ReactRouter6Adapter} from "use-query-params/adapters/react-router-6";
 import {QueryParamProvider} from "use-query-params";
 
 
+
 const DialogsContainer = React.lazy(
     () => import("./components/Dialogs/DialogsContainer"))
 const UsersPage = React.lazy(
     () => import("./components/Users/UsersPage"));
+const ChatPage = React.lazy(
+    () => import("./page/chat/ChatWebSocket"));
 
 type MapStatePropsType=ReturnType<typeof MapStateToProps>
 type MapDispatchPropsType={
@@ -63,7 +65,7 @@ class App extends React.Component<PropsType> {
                         <Route path="/news/*" element={<News/>}/>
                         <Route path="/music/*" element={<Music/>}/>
                         <Route path="/settings/*" element={<Settings/>}/>
-                        <Route path="/friends/*" element={<Friends/>}/>
+                        <Route path="/chat/*" element={withSuspense(ChatPage)}/>
                         <Route path="/users/*" element={withSuspense(UsersPage)}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="*" element={<div>404 NOT FOUND</div>}/>

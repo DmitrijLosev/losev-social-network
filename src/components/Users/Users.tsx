@@ -37,6 +37,7 @@ export const Users: React.FC = (props) => {
     const [friend, setFriend]=useQueryParam("friend",StringParam)
     const [page, setPage]=useQueryParam("page",NumberParam)
 
+
     useEffect(() => {
 
         let actualPage=!!page ? page : currentPage;

@@ -1,8 +1,19 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import s from "../../components/Users/User.module.css";
 import * as yup from "yup";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    ChatMessageWithID,
+    sendNewChatMessage,
+    startChatMessageListening,
+    stopChatMessageListening
+} from "../../Redux/Chat-reducer";
+import {ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "../../Redux/redux-store";
+import {ActionsType} from "../../Redux/Chat-reducer";
+import {ChatMessageType} from "../../api/chat-api";
 
 
 const ChatPage: React.FC<{}> = React.memo(props => {
@@ -15,69 +26,64 @@ const ChatPage: React.FC<{}> = React.memo(props => {
 )
 const Chat: React.FC = () => {
 
-    const [wsChanel, SetWSChannel] = useState<WebSocket | null>(null)
+    const dispatch = useDispatch<ThunkDispatch<AppStateType, unknown, ActionsType>>()
     useEffect(() => {
-            let ws: WebSocket
-            const closeHandler = () => {
-                setTimeout(CreateWSConnection, 3000)
-            }
-
-            function CreateWSConnection() {
-                ws?.removeEventListener('close', closeHandler)
-                ws?.close()
-                ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-                ws.addEventListener('close', closeHandler)
-                SetWSChannel(ws)
-            }
-
-            CreateWSConnection()
-            return () => {
-                ws.removeEventListener('close', closeHandler)
-                ws.close()
-            }
-        }, []
-    )
-
+        dispatch(startChatMessageListening())
+        return () => {
+            dispatch(stopChatMessageListening())
+        }
+    }, [dispatch])
 
     return (
         <div>
             <div style={{backgroundColor: 'lightgrey', padding: '10px'}}>
-                <ChatMessages wsChanel={wsChanel}/>
+                <ChatMessages/>
             </div>
-            <AddMessageForm wsChanel={wsChanel}/>
+            <AddMessageForm/>
         </div>
 
     )
 }
 
-const ChatMessages: React.FC<{ wsChanel: WebSocket | null }> = ({wsChanel}) => {
+const ChatMessages: React.FC<{}> = () => {
 
-    const [ChatMessages, setChatMessages] = useState<ChatMessageType[]>([])
-
-    const messageHandler = (e: MessageEvent) => {
-        let newEntryChatMessages = JSON.parse(e.data)
-        setChatMessages((prevChatMessages) => [...prevChatMessages, ...newEntryChatMessages])
+    let ChatMessages = useSelector((state: AppStateType) =>
+        state.chat.chatMessages)
+    const [isAutoScroll,setIsAutoScroll]=useState(false)
+const scrollHandler=(e:React.UIEvent<HTMLDivElement, UIEvent>)=>{
+const element=e.currentTarget
+    if (Math.abs((element.scrollHeight-element.scrollTop)-element.clientHeight)<300) {
+        !isAutoScroll && setIsAutoScroll(true)
+    } else {
+        isAutoScroll && setIsAutoScroll(false)
     }
-
-    useEffect(() => {
-        wsChanel?.addEventListener('message', messageHandler)
-        return () => wsChanel?.removeEventListener('message', messageHandler)
-    }, [wsChanel])
-
+}
+    const messageAnchorRef=useRef<HTMLDivElement>(null)
+useEffect(
+    ()=>{
+        if (isAutoScroll) {
+        messageAnchorRef.current?.scrollIntoView({behavior:"smooth"})}
+    },[ChatMessages]
+)
     return (
-        <div style={{overflowY: "auto", height: "450px"}}>
-            {ChatMessages.map((message: ChatMessageType, index: number) =>
-                <ChatMessage key={index} message={message}/>
+        <div style={{overflowY: "auto", height: "450px"}} onScroll={scrollHandler}>
+            {ChatMessages.map((message: ChatMessageWithID) =>
+                <ChatMessage key={message.id} message={message}/>
             )}
+            <div ref={messageAnchorRef}></div>
         </div>
 
     )
 }
-const ChatMessage: React.FC<{ message: ChatMessageType }> = ({message}) => {
+const ChatMessage: React.FC<{ message: ChatMessageType }> = React.memo(({message})=> {
 
     return (
         <div>
             <img src={message.photo} style={{width: '20px', height: '20px'}}/><b>{message.userName}</b>
+            <span style={{paddingLeft: '10px'}}>{new Date().getHours()}</span>:<span>{ new Date().getMinutes()}</span>:
+            <span>{new Date().getSeconds()}</span>
+            <span style={{paddingLeft: '10px'}}>{new Date().getDate()}</span>/<span>{new Date().getMonth()}</span>/
+            <span>{new Date().getFullYear()}</span>
             <br/>
             {message.message}
             <hr/>
@@ -85,21 +91,12 @@ const ChatMessage: React.FC<{ message: ChatMessageType }> = ({message}) => {
 
     )
 }
+)
 
+const AddMessageForm: React.FC<{}> = () => {
 
-const AddMessageForm: React.FC<{ wsChanel: WebSocket | null }> = ({wsChanel}) => {
-
-    const [isWSConnected, setConnectedWSStatus] = useState<boolean>(false)
-    const openHandler = () => setConnectedWSStatus(true)
-
-    useEffect(() => {
-        wsChanel?.addEventListener('open', openHandler)
-        return () => {
-            wsChanel?.removeEventListener('open', openHandler)
-        }
-    }, [wsChanel])
-
-
+const statusWSConnection=useSelector((state:AppStateType)=>state.chat.connectionWSStatus)
+    const dispatch = useDispatch<ThunkDispatch<AppStateType, unknown, ActionsType>>()
     const schema = yup.object({
         NewChatMessage: yup.string().max(100).required(),
     })
@@ -111,16 +108,19 @@ const AddMessageForm: React.FC<{ wsChanel: WebSocket | null }> = ({wsChanel}) =>
     });
     const onSubmit = (SubmitFormData: { NewChatMessage: string }) => {
         if (!!SubmitFormData.NewChatMessage) {
-            wsChanel?.send(SubmitFormData.NewChatMessage)
+            dispatch(sendNewChatMessage(SubmitFormData.NewChatMessage))
         }
         reset()
     }
 
+    const checkKeyDown = (e:React.KeyboardEvent<HTMLFormElement>) => {
+        if (e.key === "Enter" && e.ctrlKey && statusWSConnection) handleSubmit(onSubmit)()
+    };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <textarea {...register("NewChatMessage")} placeholder={"New Chat Message"}/>
-            <div><input type="submit" disabled={!isWSConnected || wsChanel === null} value="Send Chat Message"/></div>
+        <form onSubmit={handleSubmit(onSubmit)}  onKeyDown={(e) => checkKeyDown(e)}>
+            <textarea {...register("NewChatMessage")} placeholder={"New Chat Message"} />
+            <div><input type="submit" disabled={!statusWSConnection} value="Send Chat Message"/></div>
             <p className={s.error}>{errors.NewChatMessage?.message}</p>
         </form>
     )
@@ -128,9 +128,3 @@ const AddMessageForm: React.FC<{ wsChanel: WebSocket | null }> = ({wsChanel}) =>
 
 export default ChatPage
 
-type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
